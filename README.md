@@ -45,6 +45,8 @@ pip install -r requirements.txt
 Baixe os modelos Ollama:
 
 ```bash
+ollama run llama3.2:3b
+ollama run llama3.1:8b
 ollama run llama3.3:70b
 ```
 
