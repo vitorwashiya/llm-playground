@@ -4,6 +4,9 @@ import os
 
 list_modelos = ['llama3.2:3b', 'llama3.1:8b', 'llama3.3:70b']
 
+for dir in ['files', 'faiss']:
+    if not os.path.exists(dir):
+        os.makedirs(dir)
 for model in list_modelos:
     model_name = model.replace(":", "_").replace(".", "_")
     model_dir = os.path.join('faiss', model_name)
