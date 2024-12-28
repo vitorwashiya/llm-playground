@@ -20,6 +20,3 @@ def create_knowledge_base():
         else:
             llm_handler = LLMHandler(model)
             llm_handler.create_knowledge_base(knowledge_base, selected_files)
-            st.write(
-                f"Base de conhecimento '{knowledge_base}' criado com sucesso com os arquivos: {', '.join(selected_files)}"
-            )

@@ -6,7 +6,16 @@ from utils.file_utils import list_pdf_files
 def upload_files():
     st.title('Upload de Arquivos:')
     st.subheader('Arquivos disponíveis:')
+
+    # Search functionality
+    search_query = st.text_input('Buscar Arquivos:')
+
     files = list_pdf_files('files')
+    if search_query:
+        files = [
+            file for file in files if search_query.lower() in file.lower()
+        ]
+
     cols = st.columns(3)
     for i, file in enumerate(files):
         file_path = os.path.join('files', file)
