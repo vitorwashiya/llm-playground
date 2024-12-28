@@ -65,9 +65,9 @@ elif page == 'Upload de Arquivos':
         st.rerun()
 
 elif page == 'Criar Base de Conhecimento':
-    st.title('Create VectorStore')
+    st.title('Criar VectorStore')
 
-    st.subheader('Select files to include in the VectorStore:')
+    st.subheader('Selecione os arquivos para compor o VectorStore:')
     files = os.listdir('files')
     model = st.selectbox('Selecionar Modelo', list_modelos)
     selected_files = st.multiselect('Arquivos disponíveis:', files)
