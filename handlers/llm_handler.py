@@ -9,24 +9,39 @@ from langchain_community.document_loaders import PyPDFLoader
 
 set_debug(True)
 
-class LLM:
-    def __init__(self, model="llama3.1:8b", temperature=0, top_k=None, top_p=None, num_predict=None, knowledge_base=None):
-        self.model = ChatOllama(model=model, temperature=temperature, top_k=top_k, top_p=top_p, num_predict=num_predict)
+
+class LLMHandler:
+    def __init__(self,
+                 model="llama3.1:8b",
+                 temperature=0,
+                 top_k=None,
+                 top_p=None,
+                 num_predict=None,
+                 knowledge_base=None):
+        self.model = ChatOllama(model=model,
+                                temperature=temperature,
+                                top_k=top_k,
+                                top_p=top_p,
+                                num_predict=num_predict)
         self.knowledge_base = knowledge_base if knowledge_base != 'None' else None
         self.model_name = model.replace(":", "_").replace(".", "_")
 
     def get_response(self, input_text):
         if self.knowledge_base:
             embeddings = OllamaEmbeddings(model=self.model.model)
-            db = FAISS.load_local(f"faiss/{self.model_name}/{self.knowledge_base}", embeddings, allow_dangerous_deserialization=True)
-            qa_chain = RetrievalQA.from_chain_type(self.model, retriever=db.as_retriever())
-            response = qa_chain.invoke({"query" : input_text})
+            db = FAISS.load_local(
+                f"faiss/{self.model_name}/{self.knowledge_base}",
+                embeddings,
+                allow_dangerous_deserialization=True)
+            qa_chain = RetrievalQA.from_chain_type(self.model,
+                                                   retriever=db.as_retriever())
+            response = qa_chain.invoke({"query": input_text})
             return response.get("result")
         else:
             response = self.model.invoke(input_text)
             return response.content
-    
-    def create_vectorstore(self, vectorstore_name, selected_files):
+
+    def create_knowledge_base(self, vectorstore_name, selected_files):
         pdf_folder = "files"
         carregadores = [
             PyPDFLoader(os.path.join(pdf_folder, file))
