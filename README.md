@@ -25,8 +25,8 @@ ui.py
 Clone o repositório:
 
 ```bash
-git clone https://github.com/seuusuario/LLM-Playground.git
-cd LLM-Playground
+git clone https://github.com/vitorwashiya/llm-playground.git
+cd llm-playground
 ```
 
 Crie um ambiente virtual e ative-o:
@@ -42,12 +42,18 @@ Instale os pacotes necessários:
 pip install -r requirements.txt
 ```
 
+Baixe os modelos Ollama:
+
+```bash
+ollama run llama3.3:70b
+```
+
 ## Executando a Aplicação
 
 Para executar a aplicação Streamlit, use o seguinte comando:
 
 ```bash
-streamlit run ui.py
+python -m streamlit run ui.py
 ```
 
 ## Uso
